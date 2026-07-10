@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nahom Merhatsyon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #060606;
+      --card-bg: rgba(18, 18, 18, 0.6);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --card-border-hover: rgba(255, 0, 30, 0.18);
+      --accent: #FF001E;
+      --accent-glow: rgba(255, 0, 30, 0.12);
+      --accent-soft: rgba(255, 0, 30, 0.07);
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(255, 255, 255, 0.48);
+      --text-muted: rgba(255, 255, 255, 0.2);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html, body { height: 100%; width: 100%; overflow: hidden; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .viewport {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      max-height: 980px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-primary);
+    }
+
+    /* ===== AMBIENT ===== */
+    .ambient {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    }
+    .ambient::before {
+      content: '';
+      position: absolute;
+      top: -30%; left: -20%;
+      width: 140%; height: 60%;
+      background: radial-gradient(ellipse at 50% 40%, rgba(255, 0, 30, 0.06), transparent 70%);
+    }
+    .ambient::after {
+      content: '';
+      position: absolute;
+      bottom: -20%; right: -20%;
+      width: 120%; height: 50%;
+      background: radial-gradient(ellipse at 50% 50%, rgba(255, 0, 30, 0.04), transparent 70%);
+    }
+
+    .noise {
+      position: absolute; inset: 0; z-index: 1; opacity: 0.025; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    .content {
+      position: relative; z-index: 3;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 22px 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    .content::-webkit-scrollbar { display: none; }
+    .content { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ===== ENHANCED GLASS ===== */
+    .glass {
+      background: var(--card-bg);
+      backdrop-filter: blur(28px) saturate(1.4);
+      -webkit-backdrop-filter: blur(28px) saturate(1.4);
+      border: 1px solid var(--card-border);
+      box-shadow:
+        0 12px 48px rgba(0, 0, 0, 0.6),
+        0 0 80px rgba(255, 0, 30, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .glass::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -50%; width: 200%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.07), rgba(255, 0, 30, 0.04), transparent);
+      pointer-events: none;
+    }
+
+    .glass::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: -50%; width: 200%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02), transparent);
+      pointer-events: none;
+    }
+
+    .glass:hover {
+      border-color: var(--card-border-hover);
+      box-shadow:
+        0 16px 56px rgba(0, 0, 0, 0.6),
+        0 0 80px rgba(255, 0, 30, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-top: 28px;
+      padding-bottom: 22px;
+    }
+
+    .avatar-frame {
+      width: 96px;
+      height: 96px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .avatar-frame .outer-ring {
+      position: absolute; inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent, var(--accent), transparent 55%, transparent);
+      opacity: 0.35;
+      animation: spin 5s linear infinite;
+    }
+    .avatar-frame .inner-glow {
+      position: absolute; inset: -10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 0, 30, 0.07), transparent 70%);
+      pointer-events: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .avatar {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.06);
+      position: relative; z-index: 1;
+      box-shadow: 0 0 60px rgba(255, 0, 30, 0.06);
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .hero-text { flex: 1; min-width: 0; }
+    .hero-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .hero-name .accent { color: var(--accent); text-shadow: 0 0 20px rgba(255, 0, 30, 0.15); }
+    .hero-title {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ===== ABOUT ===== */
+    .about-card {
+      border-radius: 26px;
+      padding: 18px 22px;
+      flex-shrink: 0;
+      margin-bottom: 18px;
+    }
+    .about-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .about-card p strong { color: var(--text-primary); font-weight: 500; }
+    .about-card .highlight-bar {
+      display: block; width: 32px; height: 2px;
+      background: var(--accent);
+      border-radius: 4px; margin-top: 14px; margin-bottom: 10px;
+      opacity: 0.5;
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+    .about-card .tagline {
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ===== SKILLS ===== */
+    .skills-section {
+      flex-shrink: 0;
+      margin-bottom: 18px;
+    }
+    .skills-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      margin-bottom: 10px;
+      padding-left: 4px;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .skill-item {
+      border-radius: 18px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: default;
+    }
+    .skill-item .sk-icon {
+      width: 36px; height: 36px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      background: var(--accent-soft);
+      border: 1px solid rgba(255, 0, 30, 0.08);
+    }
+    .skill-item .sk-icon svg { width: 16px; height: 16px; stroke: var(--accent); }
+    .skill-item .sk-text {
+      font-size: 12px; font-weight: 500; color: var(--text-primary); line-height: 1.3;
+    }
+    .skill-item .sk-text small {
+      display: block; font-size: 10px; font-weight: 400; color: var(--text-secondary); margin-top: 2px;
+    }
+
+    /* ===== SOCIAL GRID ===== */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      flex-shrink: 0;
+      margin-bottom: 16px;
+    }
+    .social-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      padding: 14px 6px 12px;
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    .social-item:hover {
+      border-color: rgba(255, 0, 30, 0.2);
+      transform: translateY(-3px);
+      color: var(--text-primary);
+    }
+    .social-item svg {
+      width: 21px; height: 21px;
+      transition: all 0.3s ease;
+      position: relative; z-index: 1;
+    }
+    .social-item:hover svg { stroke: var(--accent); }
+    .social-item span { position: relative; z-index: 1; }
+
+    /* ===== QUICK LINK ===== */
+    .quick-links { display: flex; flex-direction: column; gap: 10px; }
+    .quick-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 22px;
+      border-radius: 9999px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+    .quick-link:hover {
+      border-color: rgba(255, 0, 30, 0.2);
+      transform: translateY(-2px);
+    }
+    .quick-link .ql-left {
+      display: flex; align-items: center; gap: 12px;
+      position: relative; z-index: 1;
+    }
+    .quick-link .ql-left .ql-icon {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      background: var(--accent-soft);
+      border: 1px solid rgba(255, 0, 30, 0.08);
+    }
+    .quick-link .ql-left .ql-icon svg { width: 16px; height: 16px; stroke: var(--accent); }
+    .quick-link .ql-arrow {
+      color: var(--text-muted);
+      font-size: 16px;
+      transition: all 0.3s ease;
+      position: relative; z-index: 1;
+    }
+    .quick-link:hover .ql-arrow { transform: translateX(4px); color: var(--accent); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      text-align: center;
+      font-size: 9px;
+      color: var(--text-muted);
+      padding: 20px 0 28px;
+      flex-shrink: 0;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    @media (max-width: 380px) {
+      .avatar-frame { width: 80px; height: 80px; }
+      .hero-name { font-size: 22px; }
+      .skill-item { padding: 12px 14px; }
+      .skill-item .sk-icon { width: 32px; height: 32px; }
+      .skill-item .sk-text { font-size: 11px; }
+      .social-grid { gap: 8px; }
+      .social-item { padding: 12px 4px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="viewport">
+    <div class="ambient"></div>
+    <div class="noise"></div>
+
+    <div class="content">
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="avatar-frame">
+          <div class="outer-ring"></div>
+          <div class="inner-glow"></div>
+          <div class="avatar">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Nahom Merhatsyon" />
+          </div>
+        </div>
+        <div class="hero-text">
+          <h1 class="hero-name">
+            <span class="accent">N</span>ahom <span class="accent">M</span>erhatsyon
+          </h1>
+          <div class="hero-title">Full-Stack Developer & Digital Creator</div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="about-card glass">
+        <p>
+          I build <strong>modern web applications</strong> and craft <strong>visual narratives</strong>
+          that blend code with creativity. Currently focused on <strong>scalable ERP solutions</strong>
+          and pushing what design & technology can achieve together.
+        </p>
+        <span class="highlight-bar"></span>
+        <span class="tagline">✦ Open for collaborations & new projects</span>
+      </div>
+
+      <!-- SKILLS -->
+      <div class="skills-section">
+        <div class="skills-label">✦ What I Do</div>
+        <div class="skills-grid">
+          <div class="skill-item glass">
+            <div class="sk-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <div class="sk-text">
+              Full-Stack Dev
+              <small>React, Django, APIs</small>
+            </div>
+          </div>
+          <div class="skill-item glass">
+            <div class="sk-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <div class="sk-text">
+              ERP & Mobile Apps
+              <small>Scalable Back-Office</small>
+            </div>
+          </div>
+          <div class="skill-item glass">
+            <div class="sk-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <div class="sk-text">
+              AI Automation
+              <small>Agents, Workflows, Bots</small>
+            </div>
+          </div>
+          <div class="skill-item glass">
+            <div class="sk-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+              </svg>
+            </div>
+            <div class="sk-text">
+              Video & GFX
+              <small>Editing, Motion, Design</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOCIAL GRID -->
+      <div class="social-grid">
+        <a href="https://www.instagram.com/nhrich4?igsh=bDA5anhnaGQ5ZHd6" target="_blank" rel="noopener" class="social-item glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          <span>Instagram</span>
+        </a>
+        <a href="https://github.com/NHRICH" target="_blank" rel="noopener" class="social-item glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="https://t.me/Nhrich1" target="_blank" rel="noopener" class="social-item glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 2 11 13"/>
+            <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+          </svg>
+          <span>Telegram</span>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.averp.mobile&pli=1" target="_blank" rel="noopener" class="social-item glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3 3 21 12 3 21 3 3"/>
+          </svg>
+          <span>Android App</span>
+        </a>
+
+        <a href="tel:+251977506009" class="social-item glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span>Call 1</span>
+        </a>
+        <a href="tel:+251939227189" class="social-item glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span>Call 2</span>
+        </a>
+        <a href="mailto:nahommerhatsiyon@gmail.com" class="social-item glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <span>Email</span>
+        </a>
+        <a href="https://nahom.avyevents.com/" target="_blank" rel="noopener" class="social-item glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span>Portfolio</span>
+        </a>
+      </div>
+
+      <!-- QUICK LINK -->
+      <div class="quick-links">
+        <a href="https://nahom.avyevents.com/" target="_blank" rel="noopener" class="quick-link glass">
+          <span class="ql-left">
+            <span class="ql-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </span>
+            Let&rsquo;s work together
+          </span>
+          <span class="ql-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="footer">&copy; 2026 Nahom Merhatsyon</div>
+
+    </div>
+  </div>
+</body>
+</html>
