@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="am">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ናሆም መርሃጽዮን | የልማት ባለሙያ</title>
+  <title>Nahom Merhatsyon | Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Ethiopic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -84,7 +84,7 @@
       width: 100%;
       max-width: 420px;
       height: 100vh;
-      max-height: 980px;
+      max-height: 940px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -139,7 +139,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 24px 22px 0;
+      padding: 20px 22px 0;
       overflow-y: auto;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
@@ -263,7 +263,7 @@
       align-items: center;
       gap: 20px;
       padding-top: 8px;
-      padding-bottom: 22px;
+      padding-bottom: 18px;
     }
 
     .avatar-frame {
@@ -514,7 +514,7 @@
     }
   </style>
 </head>
-<body class="lang-am">
+<body>
   <div class="theme-wipe" id="themeWipe"></div>
 
   <div class="viewport">
@@ -530,7 +530,7 @@
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
         </button>
-        <span class="lang-label" id="langLabel">አማ</span>
+        <span class="lang-label" id="langLabel">EN</span>
         <button class="toggle-btn" id="langToggle" aria-label="Toggle language">
           <svg viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10"/>
@@ -546,29 +546,31 @@
           <div class="outer-ring"></div>
           <div class="inner-glow"></div>
           <div class="avatar">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="ናሆም መርሃጽዮን" />
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Nahom Merhatsyon" />
           </div>
         </div>
         <div class="hero-text">
           <h1 class="hero-name">
-            <span class="accent">ና</span>ሆም <span class="accent">መ</span>ርሃጽዮን
+            <span class="accent">N</span>ahom <span class="accent">M</span>erhatsyon
           </h1>
-          <div class="hero-title tr" id="heroTitle">ሙሉ-ስራህ የድረገጽ ልማት ባለሙያ እና ዲጂታል ፈጣሪ</div>
+          <div class="hero-title tr" id="heroTitle">Full-Stack Developer & Digital Creator</div>
         </div>
       </div>
 
       <!-- ABOUT -->
       <div class="about-card glass">
         <p class="tr" id="aboutText">
-          <strong>ኮዲንግን ከፈጠራ አስተሳሰብ ጋር በማዋሃድ</strong> ዘመናዊ የድረገጽ መተግበሪያዎችን እገነባለሁ፤ እንዲሁም ማራኪ የምስል ትረካዎችን እፈጥራለሁ። በአሁኑ ወቅት፣ ፍላጎትን ተከትለው ሊያድጉ በሚችሉ የድርጅት ሀብት አስተዳደር (ERP) ሶፍትዌሮች ላይ ትኩረት አድርጌ እየሰራሁ ሲሆን፣ ዲዛይንና ቴክኖሎጂ በጋራ ሊያሳኩት የሚችሉትን ከፍተኛ ጥግ ለማሳየት እተጋለሁ።
+          I build <strong>modern web applications</strong> and craft <strong>visual narratives</strong>
+          that blend code with creativity. Currently focused on <strong>scalable ERP solutions</strong>
+          and pushing what design & technology can achieve together.
         </p>
         <span class="highlight-bar"></span>
-        <span class="tagline tr" id="taglineText">✦ ለጋራ ስራዎች እና ለአዳዲስ ፕሮጀክቶች ዝግጁ ነኝ</span>
+        <span class="tagline tr" id="taglineText">✦ Open for collaborations & new projects</span>
       </div>
 
       <!-- SKILLS -->
       <div class="skills-section">
-        <div class="skills-label tr" id="skillsLabel">✦ እኔ የምሰራቸው ተግባራት</div>
+        <div class="skills-label tr" id="skillsLabel">✦ What I Do</div>
         <div class="skills-grid">
           <div class="skill-item glass">
             <div class="sk-icon">
@@ -577,7 +579,7 @@
               </svg>
             </div>
             <div class="sk-text">
-              <span class="tr" id="skill1Title">ሁለገብ የድረገጽ ልማት</span>
+              <span class="tr" id="skill1Title">Full-Stack Dev</span>
               <small class="tr" id="skill1Sub">React, Django, APIs</small>
             </div>
           </div>
@@ -588,8 +590,8 @@
               </svg>
             </div>
             <div class="sk-text">
-              <span class="tr" id="skill2Title">የኢአርፒ (ERP) እና የሞባይል መተግበሪያዎች</span>
-              <small class="tr" id="skill2Sub">ሊያድግ የሚችል የጀርባ-ቢሮ አስተዳደር</small>
+              <span class="tr" id="skill2Title">ERP & Mobile Apps</span>
+              <small class="tr" id="skill2Sub">Scalable Back-Office</small>
             </div>
           </div>
           <div class="skill-item glass">
@@ -599,8 +601,8 @@
               </svg>
             </div>
             <div class="sk-text">
-              <span class="tr" id="skill3Title">የሰው ሰራሽ አስተዋፅኦ (AI) አውቶሜሽን</span>
-              <small class="tr" id="skill3Sub">ወኪሎች፣ የስራ ሂደቶች፣ ቦቶች</small>
+              <span class="tr" id="skill3Title">AI Automation</span>
+              <small class="tr" id="skill3Sub">Agents, Workflows, Bots</small>
             </div>
           </div>
           <div class="skill-item glass">
@@ -610,8 +612,8 @@
               </svg>
             </div>
             <div class="sk-text">
-              <span class="tr" id="skill4Title">የቪዲዮ እና የግራፊክስ ስራዎች</span>
-              <small class="tr" id="skill4Sub">ቅንብር፣ ተንቀሳቃሽ ምስሎች፣ ዲዛይን</small>
+              <span class="tr" id="skill4Title">Video & GFX</span>
+              <small class="tr" id="skill4Sub">Editing, Motion, Design</small>
             </div>
           </div>
         </div>
@@ -625,45 +627,45 @@
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
           </svg>
-          <span class="tr" id="social1">ኢንስታግራም</span>
+          <span class="tr" id="social1">Instagram</span>
         </a>
         <a href="https://github.com/NHRICH" target="_blank" rel="noopener" class="social-item glass">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
           </svg>
-          <span class="tr" id="social2">ጊትሀብ</span>
+          <span class="tr" id="social2">GitHub</span>
         </a>
         <a href="https://t.me/Nhrich1" target="_blank" rel="noopener" class="social-item glass">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 2 11 13"/>
             <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
           </svg>
-          <span class="tr" id="social3">ቴሌግራም</span>
+          <span class="tr" id="social3">Telegram</span>
         </a>
         <a href="https://play.google.com/store/apps/details?id=com.averp.mobile&pli=1" target="_blank" rel="noopener" class="social-item glass">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="3 3 21 12 3 21 3 3"/>
           </svg>
-          <span class="tr" id="social4">የአንድሮይድ መተግበሪያ</span>
+          <span class="tr" id="social4">Android App</span>
         </a>
         <a href="tel:+251977506009" class="social-item glass">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
           </svg>
-          <span class="tr" id="social5">ስልክ መስመር 1</span>
+          <span class="tr" id="social5">Call 1</span>
         </a>
         <a href="tel:+251939227189" class="social-item glass">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
           </svg>
-          <span class="tr" id="social6">ስልክ መስመር 2</span>
+          <span class="tr" id="social6">Call 2</span>
         </a>
         <a href="mailto:nahommerhatsiyon@gmail.com" class="social-item glass">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
             <polyline points="22,6 12,13 2,6"/>
           </svg>
-          <span class="tr" id="social7">ኢሜይል</span>
+          <span class="tr" id="social7">Email</span>
         </a>
         <a href="https://nahom.avyevents.com/" target="_blank" rel="noopener" class="social-item glass">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -671,7 +673,7 @@
             <line x1="2" y1="12" x2="22" y2="12"/>
             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
           </svg>
-          <span class="tr" id="social8">የሙያ ስራዎች ማህደር</span>
+          <span class="tr" id="social8">Portfolio</span>
         </a>
       </div>
 
@@ -684,13 +686,13 @@
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
               </svg>
             </span>
-            <span class="tr" id="ctaText">አብረን እንስራ</span>
+            <span class="tr" id="ctaText">Let&rsquo;s work together</span>
           </span>
           <span class="ql-arrow">→</span>
         </a>
       </div>
 
-      <div class="footer tr" id="footerText">&copy; 2026 ናሆም መርሃጽዮን</div>
+      <div class="footer tr" id="footerText">&copy; 2026 Nahom Merhatsyon</div>
 
     </div>
   </div>
@@ -747,7 +749,7 @@
       }
     };
 
-    let currentLang = 'am';
+    let currentLang = 'en';
     let currentTheme = 'dark';
     const translatableElements = document.querySelectorAll('.tr');
 
